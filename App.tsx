@@ -8,10 +8,18 @@
  * @format
  */
 import {requestNotifications} from 'react-native-permissions';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import React from 'react';
 
-import Drugs from './containers/Drugs'
+import HistoryComponent from './components/HistoryComponent'
+import DrugsComponent from './components/DrugsComponent'
+
+const MainNavigator = createStackNavigator({
+  Home: {screen: DrugsComponent},
+  History: {screen: HistoryComponent},
+});
 
 const App = () => {
   React.useEffect(
@@ -22,11 +30,11 @@ const App = () => {
     []
   )
 
-  return (
-    <>
-      <Drugs />
-    </>
-  );
+  const Navigator = createAppContainer(MainNavigator)
+
+  return <>
+    <Navigator />
+  </>
 };
 
 export default App;

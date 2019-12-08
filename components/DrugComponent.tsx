@@ -7,21 +7,22 @@ import {
 import RNPickerSelect from 'react-native-picker-select'
 import { range } from 'lodash'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation, NavigationContainerProps } from 'react-navigation';
 
 import PrescriptionComponent from '../components/PrescriptionComponent'
 import Drug from '../models/Drug'
 import Colors from '../styles/Colors'
-import { blackText, paddedBlackText } from '../styles/Typography'
+import { paddedBlackText } from '../styles/Typography'
 import Padding from '../styles/Padding';
 import Picker from '../styles/Picker'
 
-interface Props {
+interface Props extends NavigationContainerProps {
   drug: Drug
   onDrugUpdate: (drug: Drug) => void
 }
 
 const DrugComponent = (props: Props) => {
-  const { drug, onDrugUpdate } = props
+  const { drug, onDrugUpdate, navigation } = props
 
   const onPrescriptionDelete = (index: number) => () => {
     const prescriptions = [ ...drug.prescriptions.filter((_, i) => i !== index) ]
@@ -41,7 +42,17 @@ const DrugComponent = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={paddedBlackText.largeTitle}>{ drug.name }</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>{ drug.name }</Text>
+        <Icon.Button
+          style={styles.button}
+          iconStyle={styles.buttonIcon}
+          name='history'
+          backgroundColor='#fff0'
+          color={Colors.black}
+          onPress={() => navigation && navigation.navigate('History', {drug: drug})}
+        />
+      </View>
       <View style={styles.stock}>
         <Text style={styles.stockLabel} >Stock (doses)</Text>
         <RNPickerSelect
@@ -81,8 +92,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.grey,
     borderWidth: 1,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title: {
+    ...paddedBlackText.largeTitleObject,
+    flex: 1,
+  },
   stock: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   stockLabel: {
     ...paddedBlackText.bodyObject,
@@ -103,4 +123,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DrugComponent;
+export default withNavigation(DrugComponent);

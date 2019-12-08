@@ -4,24 +4,20 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Text,
   StatusBar,
 } from 'react-native';
 import { withNavigation, NavigationContainerProps } from 'react-navigation';
 
-import useDrugs from '../hooks/useDrugs'
-import DrugComponent from './DrugComponent'
+import HistoryComponentItem from './HistoryComponentItem'
 import Drug from '../models/Drug'
 import Colors from '../styles/Colors'
 
-const DrugsComponent = (props: NavigationContainerProps) => {
-  const [drugs, setDrugs] = useDrugs()
+interface Props extends NavigationContainerProps {}
 
-  const onDrugUpdate = (index: number) => (updatedDrug: Drug) => {
-    const updatedDrugs = [...drugs]
-    updatedDrugs[index] = updatedDrug
-    setDrugs(updatedDrugs)
-  }
+const HistoryComponent = (props: Props) => {
+  const { navigation } = props
+  if (navigation === undefined ) { return <View/> }
+  const drug = navigation.getParam('drug') as Drug
 
   return (
     <View style={styles.container}>
@@ -30,15 +26,15 @@ const DrugsComponent = (props: NavigationContainerProps) => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          { drugs.map((drug, i) => <DrugComponent key={i} drug={drug} onDrugUpdate={onDrugUpdate(i)} />) }
+          { drug.history.reverse().map((item, i) => <HistoryComponentItem key={i} item={item} />) }
         </ScrollView>
       </SafeAreaView>
     </View>
   );
 };
 
-DrugsComponent.navigationOptions = () => ({
-  title: 'Medication'
+HistoryComponent.navigationOptions = () => ({
+  title: 'Medication History'
 })
 
 const styles = StyleSheet.create({
@@ -50,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(DrugsComponent);
+export default withNavigation(HistoryComponent);

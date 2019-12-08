@@ -4,7 +4,7 @@ import { notifications } from 'react-native-firebase'
 
 import useAsyncStorage from './useAsyncStorage'
 import Drug from '../models/Drug'
-import { receive, set } from '../notifications/actions'
+import { receiveNotification, setNotifications } from '../notifications/actions'
 
 export const DRUGS_KEY = 'drugs'
 
@@ -30,15 +30,15 @@ const useDrugs = (): [Drug[], (value: Drug[]) => void] => {
     () => {
       // when open
       const removeNotificationOpenedListener = notifications()
-        .onNotificationOpened((notificationOpen) => receive(notificationOpen, drugs, setStoredValue));
+        .onNotificationOpened((notificationOpen) => receiveNotification(notificationOpen, drugs, setStoredValue));
 
       // when opened
       notifications().getInitialNotification()
-        .then(notificationOpen => notificationOpen && receive(notificationOpen, drugs, setStoredValue))
+        .then(notificationOpen => notificationOpen && receiveNotification(notificationOpen, drugs, setStoredValue))
         .catch(console.log)
 
       // in background
-      AppRegistry.registerHeadlessTask('RNFirebaseBackgroundNotificationAction', () => receive); // <-- Add this line
+      AppRegistry.registerHeadlessTask('RNFirebaseBackgroundNotificationAction', () => receiveNotification); // <-- Add this line
 
       return () => removeNotificationOpenedListener()
     },
@@ -47,7 +47,7 @@ const useDrugs = (): [Drug[], (value: Drug[]) => void] => {
 
   const setValue = (value: Drug[]) => {
     setStoredValue(value)
-    set(value)
+    setNotifications(value)
   }
 
   return [drugs, setValue];
