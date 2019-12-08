@@ -1,0 +1,56 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.friends">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:allowBackup="false"
+      android:theme="@style/AppTheme">
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:launchMode="singleTop"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity>
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+       See README(https://goo.gl/l4GJaQ) for more. -->
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_stat_ic_notification" />
+      <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+          notification message. See README(https://goo.gl/6BKBk7) for more. -->
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@color/colorAccent" />
+      <!-- For scheduled background notifications -->
+      <receiver android:name="io.invertase.firebase.notifications.RNFirebaseNotificationReceiver"/>
+      <receiver android:enabled="true" android:exported="true"
+        android:name="io.invertase.firebase.notifications.RNFirebaseNotificationsRebootReceiver">
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED"/>
+          <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+          <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </receiver>
+      <receiver android:name="io.invertase.firebase.notifications.RNFirebaseBackgroundNotificationActionReceiver" android:exported="true">
+        <intent-filter>
+          <action android:name="io.invertase.firebase.notifications.BackgroundAction"/>
+        </intent-filter>
+      </receiver>
+      <service android:name="io.invertase.firebase.notifications.RNFirebaseBackgroundNotificationActionsService"/>
+    </application>
+
+</manifest>

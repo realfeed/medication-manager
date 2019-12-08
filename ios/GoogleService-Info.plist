@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>399691348307-3kcca9t0dvm4fd70eee6uo1654k0pkdo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.399691348307-3kcca9t0dvm4fd70eee6uo1654k0pkdo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDn1mMU1wLuFj7G63A_IW74HpsKbscxqao</string>
+	<key>GCM_SENDER_ID</key>
+	<string>399691348307</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.aidanandsam.friends.app</string>
+	<key>PROJECT_ID</key>
+	<string>friends-a628b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>friends-a628b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:399691348307:ios:8d522de63a2ee5d5</string>
+	<key>DATABASE_URL</key>
+	<string>https://friends-a628b.firebaseio.com</string>
+</dict>
+</plist>
