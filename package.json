@@ -13,7 +13,7 @@
     "@types/ramda": "^0.26.37",
     "@types/react-native-vector-icons": "^6.4.4",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ramda": "^0.26.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
